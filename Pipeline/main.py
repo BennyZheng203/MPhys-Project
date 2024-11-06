@@ -1,8 +1,8 @@
 # Main pipeline development
-
-# main.py
-
 from fetch_alerts import AlertScraper
+
+
+
 
 def main():
     url = "https://gcn.gsfc.nasa.gov/amon_icecube_gold_bronze_events.html"

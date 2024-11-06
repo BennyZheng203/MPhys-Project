@@ -2,7 +2,7 @@
 
 # main.py
 
-from alert_scraper import AlertScraper
+from fetch_alerts import AlertScraper
 
 def main():
     url = "https://gcn.gsfc.nasa.gov/amon_icecube_gold_bronze_events.html"

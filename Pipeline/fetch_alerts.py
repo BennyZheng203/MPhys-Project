@@ -2,9 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import hashlib
+import os
 
 class AlertScraper:
-    def __init__(self, url, data_csv):
+    def __init__(self, url, data_csv, output_dir):
         """
         Initialize the AlertScraper with a URL and a CSV file path for data storage.
 
@@ -14,6 +15,7 @@ class AlertScraper:
         """
         self.url = url
         self.data_csv = data_csv
+        self.output_dir = output_dir
         self.last_etag = None  # Stores the last known ETag to check for page updates.
         self.last_hash = None  # Stores the last known hash for content change detection.
 
@@ -116,7 +118,8 @@ class AlertScraper:
             if html:
                 # Parse the table and save the resulting DataFrame as a CSV
                 data = self.parse_table(html)
-                data.to_csv(self.data_csv, index=False)
+                data_path = os.path.join(self.output_dir, 'alert_data.csv')
+                data.to_csv(data_path, index=False)
                 print("Data saved to CSV.")
             else:
                 print("Failed to retrieve page content.")
@@ -128,7 +131,7 @@ if __name__ == "__main__":
     # Define the URL and output CSV file path
     url = "https://gcn.gsfc.nasa.gov/amon_icecube_gold_bronze_events.html"
     data_csv = "alert_data.csv"
-    
+    output_dir = r'/users/jhzhe/Cloned_Repos/MPhys_Project/output_data/alerts'
     # Initialize and run the scraper
     scraper = AlertScraper(url, data_csv)
     scraper.scrape()

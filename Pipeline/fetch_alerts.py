@@ -128,8 +128,8 @@ class AlertScraper:
 if __name__ == "__main__":
     # Define the URL, CSV file for comparison, and output directory
     url = "https://gcn.gsfc.nasa.gov/amon_icecube_gold_bronze_events.html"
-    data_csv = r'/users/jhzhe/Cloned_Repos/MPhys_Project/output_data/alerts/alert_data.csv'
-    output_dir = r'/users/jhzhe/Cloned_Repos/MPhys_Project/output_data/alerts'
+    data_csv = r'/users/jhzhe/Cloned_Repos/MPhys-Project/output_data/alerts/alert_data.csv'
+    output_dir = r'/users/jhzhe/Cloned_Repos/MPhys-Project/output_data/alerts'
 
     # Initialize and run the scraper
     scraper = AlertScraper(url, data_csv, output_dir)

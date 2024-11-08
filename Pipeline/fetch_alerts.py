@@ -74,27 +74,6 @@ class AlertScraper:
             print(f"Error reading CSV file: {e}")
             return None
 
-    def scrape(self):
-        """
-        Main method to check for updates and scrape data if the first table entry is different.
-        If updated, saves the data as a CSV file.
-        """
-        html = self.request_page()
-        if html:
-            current_first_entry = self.parse_table_head(html)
-            csv_first_entry = self.get_latest_csv_entry()
-            
-            if current_first_entry and current_first_entry != csv_first_entry:
-                print("New data detected. Updating CSV.")
-                data = self.parse_table(html)
-                data_path = os.path.join(self.output_dir, 'alert_data.csv')
-                data.to_csv(data_path, index=False)
-                print("Data saved to CSV.")
-            else:
-                print("No new data detected.")
-        else:
-            print("Failed to retrieve page content.")
-
     def parse_table(self, html):
         """
         Parse the HTML content to extract the entire table's data into a DataFrame.
@@ -121,8 +100,32 @@ class AlertScraper:
         # Create a DataFrame and filter rows where the 'Rev' column has a value of '1'
         alert_df = pd.DataFrame(data, columns=headers)
         filtered_alert_df = alert_df.loc[alert_df['Rev'] != str(0)].drop(['Rev'], axis=1)
-        
+        filtered_alert_df['Date'] = pd.to_datetime(filtered_alert_df['Date'], format = '%y/%m/%d')
+        filtered_alert_df = filtered_alert_df.convert_dtypes()
+
         return filtered_alert_df
+    
+    def scrape(self):
+        """
+        Main method to check for updates and scrape data if the first table entry is different.
+        If updated, saves the data as a CSV file.
+        """
+        html = self.request_page()
+        if html:
+            current_first_entry = self.parse_table_head(html)
+            csv_first_entry = self.get_latest_csv_entry()
+            
+            if current_first_entry and current_first_entry != csv_first_entry:
+                print("New data detected. Updating CSV.")
+                data = self.parse_table(html)
+                data_path = os.path.join(self.output_dir, 'alert_data.csv')
+                data.to_csv(data_path, index=False)
+                print("Data saved to CSV.")
+            else:
+                print("No new data detected.")
+        else:
+            print("Failed to retrieve page content.")
+
 
 # Usage
 if __name__ == "__main__":

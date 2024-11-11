@@ -29,8 +29,8 @@ def main():
     run_script_with_args(download_script, *download_args)
 
     # Run `clean.py` with its specific flags (modify as needed)
-    #clean_args = ['--clean-flag1', 'value1', '--option2']
-    #run_script_with_args(clean_script, *clean_args)
+    clean_args = ['--clean-flag1', 'value1', '--option2']
+    run_script_with_args(clean_script, *clean_args)
 
 if __name__ == "__main__":
     main()

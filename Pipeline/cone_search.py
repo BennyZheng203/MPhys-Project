@@ -65,7 +65,7 @@ class CatSearch():
         Saves the results as CSV files in the specified output directory.
         """
         try:
-            alert_coords = self.alert_csv[['RunNum_EventNum', 'RA [deg]', 'Dec [deg]', 'Error90 [arcmin]']]
+            alert_coords = self.alert_csv[['RunNum_EventNum', 'Date', 'RA [deg]', 'Dec [deg]', 'Error90 [arcmin]']]
             event_list = [x for x in alert_coords['RunNum_EventNum']]
             ra_list = [float(x) for x in alert_coords['RA [deg]']]
             dec_list = [float(x) for x in alert_coords['Dec [deg]']]
@@ -80,6 +80,8 @@ class CatSearch():
         for (event, ra, dec, err) in zip(event_list, ra_list, dec_list, err_list):
             try:
                 coord_data = self.query_tap(ra, dec, err)
+                coord_data['date'] =  alert_coords.loc[alert_coords['RunNum_EventNum'] == event, 'Date'].values[0]
+                coord_data['event'] =  event
                 os.makedirs(self.output_dir, exist_ok=True)
                 if not coord_data.empty:
                     output_path = os.path.join(self.output_dir, f'NED_{event}.csv')

@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import os
+from astropy.time import Time
 
 class AlertScraper:
     def __init__(self, url, data_csv, output_dir):
@@ -102,6 +103,7 @@ class AlertScraper:
         filtered_alert_df = alert_df.loc[alert_df['Rev'] != str(0)].drop(['Rev'], axis=1)
         filtered_alert_df['Date'] = pd.to_datetime(filtered_alert_df['Date'], format = '%y/%m/%d')
         filtered_alert_df = filtered_alert_df.convert_dtypes()
+        filtered_alert_df['Date'] = Time(filtered_alert_df['Date'].to_list()).mjd
 
         return filtered_alert_df
     

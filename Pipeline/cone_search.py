@@ -47,7 +47,7 @@ class CatSearch():
             query = f"SELECT TOP 40 {self.columns} FROM {self.table_name} WHERE {cone}"
 
             ned = TapPlus(url=self.url)
-            job = ned.launch_job_async(query)
+            job = ned.launch_job(query)
             results = job.get_results()
             coord_data = results.to_pandas()
 

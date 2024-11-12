@@ -34,7 +34,7 @@ class Atclean_Query():
         clean_script = os.path.join(self.repo_path, 'clean.py')
 
         # Iterating through rows and running download.py/clean.py for each galaxy
-        for csv in data_path:
+        for csv in self.data_path:
             data_csv = pd.read_csv(csv)
             for index, (ra, dec, date, event) in data_csv[['ra', 'dec', 'date', 'event']].iterrows():     
                 name = f'neutrino_{event}_galaxy{index}'

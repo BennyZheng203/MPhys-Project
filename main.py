@@ -25,7 +25,7 @@ def main():
     clean_script = os.path.join(repo_path, 'clean.py')
 
     # Run `download.py` with flags
-    download_args = ['--coords', '134,-13', '-o', '-l' ,'100', '--mjd', '60539', 'candidate_tde2']
+    download_args = ['--coords', '134,-13', '-o', '-l' ,'100', '--mjd0', '60539', 'candidate_tde2']
     run_script_with_args(download_script, *download_args)
 
     # Run `clean.py` with its specific flags (modify as needed)

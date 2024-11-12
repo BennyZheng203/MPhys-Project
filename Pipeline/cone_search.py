@@ -44,7 +44,7 @@ class CatSearch():
         """
         try:
             cone = f"CONTAINS(POINT('{self.coord_sys}', RA, Dec), CIRCLE('{self.coord_sys}', {coord_ra}, {coord_dec}, {err}))=1"
-            query = f"SELECT TOP 50 {self.columns} FROM {self.table_name} WHERE {cone}"
+            query = f"SELECT TOP 40 {self.columns} FROM {self.table_name} WHERE {cone}"
 
             ned = TapPlus(url=self.url)
             job = ned.launch_job_async(query)
@@ -69,7 +69,7 @@ class CatSearch():
             event_list = [x for x in alert_coords['RunNum_EventNum']]
             ra_list = [float(x) for x in alert_coords['RA [deg]']]
             dec_list = [float(x) for x in alert_coords['Dec [deg]']]
-            err_list = [float(x)/60 for x in alert_coords['Error90 [arcmin]']]
+            err_list = [round(float(x)/60, 4) for x in alert_coords['Error90 [arcmin]']]
         except KeyError as e:
             logging.error(f"Missing expected column in alert CSV: {e}")
             return

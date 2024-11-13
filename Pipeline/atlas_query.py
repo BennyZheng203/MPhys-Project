@@ -39,7 +39,7 @@ class Atclean_Query():
             for index, (ra, dec, date, event) in data_csv[['ra', 'dec', 'date', 'event']].iterrows():     
                 name = f'neutrino_{event}_galaxy{index}'
                 # Run `download.py` with flags
-                download_args = ['--coords', f'{ra},{dec}', '-o', '--mjd0', f'{date+200}', name]
+                download_args = ['--coords', f'{ra},{dec}', '-o', '-l', '200','--mjd0', f'{date+200}', name]
                 self.run_script_with_args(download_script, *download_args)
 
                 # Run `clean.py` with its specific flags (modify as needed)

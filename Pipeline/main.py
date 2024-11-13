@@ -4,6 +4,7 @@ from fetch_alerts import AlertScraper
 from cone_search import CatSearch
 from atlas_query import Atclean_Query
 import logging
+import matplotlib
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

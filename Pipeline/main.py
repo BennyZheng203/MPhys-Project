@@ -39,7 +39,7 @@ def plotter(txt_files, output_dir):
         )
         plt.plot(filtered_df['MJD'], filtered_df['uJy'], marker='o', linestyle='-', label=galaxy_label)
         plt.legend(loc="upper right")
-        plt.savefig(f'compiled_plot_{galaxy_label}')
+        plt.savefig(os.path.join(output_dir, f'compiled_plot_{galaxy_label}'))
 
 def main():
     # Set up paths and URLs

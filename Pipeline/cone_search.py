@@ -43,8 +43,8 @@ class CatSearch():
         - pd.DataFrame: The resulting data from the TAP query as a DataFrame.
         """
         try:
-            cone = f"CONTAINS(POINT('{self.coord_sys}', RA, Dec), CIRCLE('{self.coord_sys}', {coord_ra}, {coord_dec}, {err}))=1"
-            query = f"SELECT TOP 40 {self.columns} FROM {self.table_name} WHERE {cone}"
+            cone = f"CONTAINS(POINT('{self.coord_sys}', RA, Dec ), CIRCLE('{self.coord_sys}', {coord_ra}, {coord_dec}, {err}))=1, 'Object Type' = 'G'" 
+            query = f"SELECT TOP 50 {self.columns} FROM {self.table_name} WHERE {cone}"
 
             ned = TapPlus(url=self.url)
             job = ned.launch_job(query)
@@ -93,10 +93,10 @@ class CatSearch():
                 logging.error(f"An unexpected error occurred during the search process: {e}")
 
 if __name__ == '__main__':
-    output_dir = r'/users/jhzhe/Cloned_Repos/MPhys-Project/output_data/ned_search'
+    output_dir = r'/users/jhzhe/dev/MPhys-Project/output_data/ned_search'
     url = "https://ned.ipac.caltech.edu/tap/sync"
     try:
-        alert_csv = pd.read_csv(r'/users/jhzhe/Cloned_Repos/MPhys-Project/output_data/alerts/alert_data.csv')
+        alert_csv = pd.read_csv(r'/users/jhzhe/dev/MPhys-Project/output_data/alerts/alert_data.csv')
     except FileNotFoundError as e:
         logging.error(f"Alert CSV file not found: {e}")
         exit()

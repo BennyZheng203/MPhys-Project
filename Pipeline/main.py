@@ -134,13 +134,13 @@ def plotter(txt_files, output_dir, colour, flag):
 def main():
     # Set up paths and URLs
     alert_url = "https://gcn.gsfc.nasa.gov/amon_icecube_gold_bronze_events.html"
-    alert_csv_path = r'/users/jhzhe/Cloned_Repos/MPhys-Project/output_data/alerts/alert_data.csv'
-    alert_output_dir = r'/users/jhzhe/Cloned_Repos/MPhys-Project/output_data/alerts'
-    ned_search_output_dir = r'/users/jhzhe/Cloned_Repos/MPhys-Project/output_data/ned_search'
+    alert_csv_path = r'/users/jhzhe/dev/MPhys-Project/output_data/alerts/alert_data.csv'
+    alert_output_dir = r'/users/jhzhe/dev/MPhys-Project/output_data/alerts'
+    ned_search_output_dir = r'/users/jhzhe/dev/MPhys-Project/output_data/ned_search'
     data_path = [os.path.join(ned_search_output_dir, csv) for csv in os.listdir(ned_search_output_dir) if csv.endswith(".csv")]
-    repo_path = r'/users/jhzhe/Cloned_Repos/ATCleanRepo'
-    atlas_output_dir = r'/users/jhzhe/Cloned_Repos/MPhys-Project/output_data/atlas_query/output'
-    final_output_dir = r'/users/jhzhe/Cloned_Repos/MPhys-Project/output_data/final_output'
+    repo_path = r'/users/jhzhe/Cloned_Repos/ATCleanRepoTest'
+    atlas_output_dir = r'/users/jhzhe/dev/MPhys-Project/output_data/atlas_query/output'
+    final_output_dir = r'/users/jhzhe/dev/MPhys-Project/output_data/final_output'
     tap_url = "https://ned.ipac.caltech.edu/tap/sync"
 
     # Stage 1: Scrape the alerts
@@ -169,8 +169,8 @@ def main():
     c_txt = txt_finder(atlas_txt_dir=atlas_output_dir, colour='c',avg=4)
     o_txt = txt_finder(atlas_txt_dir=atlas_output_dir, colour='o', avg=4)
 
-    plotter(c_txt, output_dir=final_output_dir, colour='c')
-    plotter(o_txt, final_output_dir, colour='o')
+    plotter(c_txt, output_dir=final_output_dir, colour='c', flag=False)
+    plotter(o_txt, final_output_dir, colour='o', flag=False)
 
 if __name__ == "__main__":
     main()
